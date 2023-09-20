@@ -1,0 +1,58 @@
+/* Apply styles to the body element */
+body {
+    font-family: 'Roboto', sans-serif; /* Use the "Roboto" font */
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+    opacity: 0; /* Start with elements hidden */
+    animation: fadeIn 1s ease-in-out forwards; /* Apply the pop-in effect */
+}
+/* Keyframes for the pop-in effect */
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+        transform: scale(0.8); /* Start small */
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1); /* Pop in to full size */
+    }
+}
+
+/* Style the h1 element */
+h1 {
+    font-size: 36px;
+    color: #333;
+    margin-top: 40px;
+}
+
+/* Style the paragraph */
+p {
+    font-size: 18px;
+    color: #666;
+    margin-top: 20px;
+}
+
+/* Style the spans inside the paragraph */
+span {
+    font-weight: bold;
+    color: #007BFF;
+}
+
+/* Style a call-to-action button */
+.button {
+    display: inline-block;
+    padding: 10px 20px;
+    margin-top: 30px;
+    background-color: #007BFF;
+    color: #fff;
+    font-size: 20px;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.button:hover {
+    background-color: #0056b3;
+}

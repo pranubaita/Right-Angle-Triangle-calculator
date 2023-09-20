@@ -1,0 +1,17 @@
+{
+  "name": "applicationlauncher",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.js",
+  "electron": "^1.4.3",
+  "electron-packager": "^8.1.0",
+  "scripts": {
+    "start": "electron ."
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "electron": "^26.2.1"
+  }
+}
