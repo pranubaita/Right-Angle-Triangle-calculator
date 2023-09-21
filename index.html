@@ -1,47 +1,60 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Right Triangle Calculator</title>
+    <title>Triangle Calculator</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
-            background-color: #f5f5f5;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #222;
+            color: #fff;
             margin: 0;
-            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .container {
+            background-color: #333;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
             text-align: center;
+            max-width: 400px;
+            width: 100%;
         }
 
         h1 {
-            color: #333;
-        }
-
-        p {
-            color: #666;
+            color: #fff;
+            margin-bottom: 20px;
         }
 
         label {
             display: block;
+            margin-bottom: 10px;
             font-weight: bold;
-            margin-top: 10px;
+            color: #fff;
         }
 
         input[type="number"] {
             width: 100%;
             padding: 10px;
             margin-bottom: 15px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            font-size: 16px;
+            border: 1px solid #555;
+            background-color: #444;
+            color: #fff;
+            border-radius: 4px;
         }
 
         button {
-            padding: 10px 20px;
-            background-color: #007bff;
+            background-color: #007BFF;
             color: #fff;
+            padding: 10px 20px;
             border: none;
-            border-radius: 5px;
-            font-size: 18px;
+            border-radius: 4px;
             cursor: pointer;
+            font-weight: bold;
+            transition: background-color 0.2s;
         }
 
         button:hover {
@@ -49,68 +62,75 @@
         }
 
         #result {
-            font-size: 18px;
-            font-weight: bold;
             margin-top: 20px;
+            font-weight: bold;
+            color: #fff;
         }
     </style>
-
-
 </head>
 <body>
-<h1>Right Triangle Calculator</h1>
-<p>Enter any two known values and click "Calculate" to find the value of the third.</p>
-
-<label for="sideA">Side A (Adjacent):</label>
-<input type="number" id="sideA" placeholder="Side A">
-
-<label for="sideB">Side B (Opposite):</label>
-<input type="number" id="sideB" placeholder="Side B">
-
-<label for="hypotenuse">Hypotenuse (C):</label>
-<input type="number" id="hypotenuse" placeholder="Hypotenuse (C)">
-
-<label for="angle">Angle (θ):</label>
-<input type="number" id="angle" placeholder="Angle (θ)">
-
-<button onclick="calculate()">Calculate</button>
-
-<p id="result"></p>
+<div class="container">
+    <h1>Right-Angled Triangle Calculator</h1>
+    <p>Enter the known values and click "Calculate" to find the unknown side or angle:</p>
+    <label for="sideA">Side A:</label>
+    <input type="number" id="sideA" placeholder="Enter side A">
+    <br><br>
+    <label for="sideB">Side B:</label>
+    <input type="number" id="sideB" placeholder="Enter side B">
+    <br><br>
+    <label for="angle">Angle (in degrees):</label>
+    <input type="number" id="angle" placeholder="Enter angle">
+    <br><br>
+    <label for="hypotenuse">Hypotenuse:</label>
+    <input type="number" id="hypotenuse" placeholder="Enter hypotenuse">
+    <br><br>
+    <button onclick="calculate()">Calculate</button>
+    <br><br>
+    <p id="result"></p>
+</div>
 
 <script>
     function calculate() {
         const sideA = parseFloat(document.getElementById("sideA").value);
         const sideB = parseFloat(document.getElementById("sideB").value);
-        const hypotenuse = parseFloat(document.getElementById("hypotenuse").value);
         const angle = parseFloat(document.getElementById("angle").value);
+        const hypotenuse = parseFloat(document.getElementById("hypotenuse").value);
 
-        if (!isNaN(sideA) && !isNaN(sideB) && isNaN(hypotenuse) && isNaN(angle)) {
-            // Calculate the hypotenuse using Pythagoras' theorem
+        let result = "";
+
+        if (!isNaN(sideA) && !isNaN(sideB) && !isNaN(angle) && !isNaN(hypotenuse)) {
+            result = "Please enter only three values (side A, side B, angle, or hypotenuse).";
+        } else if (!isNaN(sideA) && !isNaN(sideB)) {
+            // Calculate the hypotenuse using Pythagoras' Theorem
             const hypotenuse = Math.sqrt(Math.pow(sideA, 2) + Math.pow(sideB, 2));
-            document.getElementById("result").innerHTML = `Hypotenuse (C) = ${hypotenuse.toFixed(2)}`;
-        } else if (!isNaN(sideA) && isNaN(sideB) && !isNaN(hypotenuse) && isNaN(angle)) {
-            // Calculate side B using Pythagoras' theorem
-            const sideB = Math.sqrt(Math.pow(hypotenuse, 2) - Math.pow(sideA, 2));
-            document.getElementById("result").innerHTML = `Side B = ${sideB.toFixed(2)}`;
-        } else if (isNaN(sideA) && !isNaN(sideB) && isNaN(hypotenuse) && !isNaN(angle)) {
-            // Calculate side A using trigonometric ratio (tan)
-            const sideA = sideB / Math.tan(angle * (Math.PI / 180));
-            document.getElementById("result").innerHTML = `Side A = ${sideA.toFixed(2)}`;
-        } else if (isNaN(sideA) && isNaN(sideB) && !isNaN(hypotenuse) && !isNaN(angle)) {
-            // Calculate side B using trigonometric ratio (sin)
-            const sideB = hypotenuse * Math.sin(angle * (Math.PI / 180));
-            document.getElementById("result").innerHTML = `Side B = ${sideB.toFixed(2)}`;
-        } else if (isNaN(sideA) && !isNaN(sideB) && isNaN(hypotenuse) && isNaN(angle)) {
-            // Calculate hypotenuse using Pythagoras' theorem
-            const hypotenuse = sideB / Math.sin(angle * (Math.PI / 180));
-            document.getElementById("result").innerHTML = `Hypotenuse (C) = ${hypotenuse.toFixed(2)}`;
-        } else if (!isNaN(sideA) && isNaN(sideB) && isNaN(hypotenuse) && !isNaN(angle)) {
-            // Calculate side B using trigonometric ratio (cos)
-            const sideB = sideA * Math.tan(angle * (Math.PI / 180));
-            document.getElementById("result").innerHTML = `Side B = ${sideB.toFixed(2)}`;
+            result = `Hypotenuse (C): ${hypotenuse.toFixed(2)} units`;
+        } else if (!isNaN(sideA) && !isNaN(angle)) {
+            // Calculate side B using trigonometric ratios (sin)
+            const sideB = sideA * Math.sin(angle * (Math.PI / 180));
+            result = `Side B: ${sideB.toFixed(2)} units`;
+        } else if (!isNaN(sideB) && !isNaN(angle)) {
+            // Calculate side A using trigonometric ratios (cos)
+            const sideA = sideB * Math.cos(angle * (Math.PI / 180));
+            result = `Side A: ${sideA.toFixed(2)} units`;
+        } else if (!isNaN(sideA) && !isNaN(hypotenuse)) {
+            // Calculate the angle using side A and hypotenuse
+            const angleRad = Math.acos(sideA / hypotenuse);
+            const angleDeg = (angleRad * 180) / Math.PI;
+            result = `Angle (in degrees): ${angleDeg.toFixed(2)}°`;
+        } else if (!isNaN(sideB) && !isNaN(hypotenuse)) {
+            // Calculate the angle using side B and hypotenuse
+            const angleRad = Math.asin(sideB / hypotenuse);
+            const angleDeg = (angleRad * 180) / Math.PI;
+            result = `Angle (in degrees): ${angleDeg.toFixed(2)}°`;
+        } else if (!isNaN(angle) && !isNaN(hypotenuse)) {
+            // Calculate side A using the angle and hypotenuse
+            const sideA = hypotenuse * Math.cos(angle * (Math.PI / 180));
+            result = `Side A: ${sideA.toFixed(2)} units`;
         } else {
-            document.getElementById("result").innerHTML = "Please enter valid input values.";
+            result = "Invalid input. Please enter valid values.";
         }
+
+        document.getElementById("result").textContent = result;
     }
 </script>
 </body>
